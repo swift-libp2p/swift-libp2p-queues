@@ -81,7 +81,9 @@ extension Application {
 
         struct Lifecycle: LifecycleHandler {
             func shutdown(_ application: Application) {
-                application.queues.storage.commands.forEach { $0.shutdown() }
+                for command in application.queues.storage.commands {
+                    command.shutdown()
+                }
                 application.queues.storage.driver?.shutdown()
             }
 
