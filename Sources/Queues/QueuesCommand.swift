@@ -151,9 +151,9 @@ public final class QueuesCommand: AsyncCommand, Sendable {
         }
 
         self.application.logger.trace("Beginning the scheduling process")
-        self.application.queues.configuration.scheduledJobs.forEach {
-            self.application.logger.trace("Scheduling job", metadata: ["name": "\($0.job.name)"])
-            self.schedule($0)
+        for scheduledJob in self.application.queues.configuration.scheduledJobs {
+            self.application.logger.trace("Scheduling job", metadata: ["name": "\(scheduledJob.job.name)"])
+            self.schedule(scheduledJob)
         }
     }
 
@@ -207,17 +207,17 @@ public final class QueuesCommand: AsyncCommand, Sendable {
             // stop running in case shutting down from signal
             self.application.running?.stop()
 
-            // clear signal sources
-            box.signalSources.forEach { $0.cancel() }  // clear refs
+            // clear signal sources (clear refs)
+            for source in box.signalSources { source.cancel() }
             box.signalSources = []
 
             // stop all job queue workers
-            box.jobTasks.forEach {
-                $0.syncCancel(on: self.application.eventLoopGroup.any())
+            for worker in box.jobTasks {
+                worker.syncCancel(on: self.application.eventLoopGroup.any())
             }
             // stop all scheduled jobs
-            box.scheduledTasks.values.forEach {
-                $0.task.syncCancel(on: self.application.eventLoopGroup.any())
+            for job in box.scheduledTasks.values {
+                job.task.syncCancel(on: self.application.eventLoopGroup.any())
             }
         }
     }
@@ -229,8 +229,8 @@ public final class QueuesCommand: AsyncCommand, Sendable {
             // stop running in case shutting down from signal
             self.application.running?.stop()
 
-            // clear signal sources
-            box.signalSources.forEach { $0.cancel() }  // clear refs
+            // clear signal sources (clear refs)
+            for source in box.signalSources { source.cancel() }
             box.signalSources = []
 
             // Release the lock before we start any suspensions
