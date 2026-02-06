@@ -26,7 +26,7 @@ struct AsyncQueueTests {
     init() async throws {
         try #require(isLoggingConfigured)
     }
-    
+
     @Test func testAsyncJobWithSyncQueue() async throws {
         var promise: EventLoopPromise<Void>!
 

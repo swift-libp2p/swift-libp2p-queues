@@ -29,7 +29,7 @@ struct QueueTests {
     init() async throws {
         try #require(isLoggingConfigured)
     }
-    
+
     @Test func testLibP2PIntegrationWithInProcessJob() async throws {
         var jobSignal1: EventLoopPromise<String>!
         var jobSignal2: EventLoopPromise<String>!

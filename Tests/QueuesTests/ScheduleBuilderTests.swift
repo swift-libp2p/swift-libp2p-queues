@@ -23,7 +23,7 @@ import Testing
 
 @Suite("Schedule Builder Tests")
 struct ScheduleBuilderTests {
-    
+
     init() async throws {
         try #require(isLoggingConfigured)
     }
