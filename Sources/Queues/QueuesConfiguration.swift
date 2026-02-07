@@ -25,7 +25,7 @@ import NIOCore
 public struct QueuesConfiguration: Sendable {
     private struct DataBox: Sendable {
         var refreshInterval: TimeAmount = .seconds(1)
-        var persistenceKey: String = "vapor_queues"
+        var persistenceKey: String = "libp2p_queues"
         var workerCount: WorkerCount = .default
         var userInfo: [AnySendableHashable: any Sendable] = [:]
 
@@ -42,7 +42,7 @@ public struct QueuesConfiguration: Sendable {
         set { self.dataBox.withLockedValue { $0.refreshInterval = newValue } }
     }
 
-    /// The key that stores the data about a job. Defaults to `vapor_queues`
+    /// The key that stores the data about a job. Defaults to `libp2p_queues`
     public var persistenceKey: String {
         get { self.dataBox.withLockedValue { $0.persistenceKey } }
         set { self.dataBox.withLockedValue { $0.persistenceKey = newValue } }
@@ -95,9 +95,9 @@ public struct QueuesConfiguration: Sendable {
     /// Creates an empty ``QueuesConfiguration``.
     public init(
         refreshInterval: TimeAmount = .seconds(1),
-        persistenceKey: String = "vapor_queues",
+        persistenceKey: String = "libp2p_queues",
         workerCount: WorkerCount = .default,
-        logger: Logger = .init(label: "codes.vapor.queues")
+        logger: Logger = .init(label: "libp2p.queues")
     ) {
         self.logger = logger
         self.refreshInterval = refreshInterval

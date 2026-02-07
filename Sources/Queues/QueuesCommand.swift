@@ -40,7 +40,7 @@ public final class QueuesCommand: AsyncCommand, Sendable {
     }
 
     // See `Command.help`.
-    public var help: String { "Starts the Vapor Queues worker" }
+    public var help: String { "Starts the Libp2p Queues worker" }
 
     private let application: Application
 
@@ -56,7 +56,7 @@ public final class QueuesCommand: AsyncCommand, Sendable {
     /// Create a new ``QueuesCommand``.
     ///
     /// - Parameters:
-    ///   - application: The active Vapor `Application`.
+    ///   - application: The active Libp2p `Application`.
     ///   - scheduled: This parameter is a historical artifact and has no effect.
     public init(application: Application, scheduled: Bool = false) {
         self.application = application
@@ -70,7 +70,7 @@ public final class QueuesCommand: AsyncCommand, Sendable {
         self.application.running = .start(using: promise)
 
         // setup signal sources for shutdown
-        let signalQueue = DispatchQueue(label: "codes.vapor.jobs.command")
+        let signalQueue = DispatchQueue(label: "libp2p.jobs.command")
         func makeSignalSource(_ code: Int32) {
             #if canImport(Darwin)
             /// https://github.com/swift-server/swift-service-lifecycle/blob/main/Sources/UnixSignals/UnixSignalsSequence.swift#L77-L82

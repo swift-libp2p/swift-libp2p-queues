@@ -26,7 +26,7 @@ extension RepeatedTask {
             self.cancel(promise: promise)
             try promise.futureResult.wait()
         } catch {
-            Logger(label: "codes.vapor.queues.repeatedtask").debug(
+            Logger(label: "libp2p.queues.repeatedtask").debug(
                 "Failed cancelling repeated task",
                 metadata: ["error": "\(error)"]
             )
@@ -39,7 +39,7 @@ extension RepeatedTask {
             self.cancel(promise: promise)
             try await promise.futureResult.get()
         } catch {
-            Logger(label: "codes.vapor.queues.repeatedtask").debug(
+            Logger(label: "libp2p.queues.repeatedtask").debug(
                 "Failed cancelling repeated task",
                 metadata: ["error": "\(error)"]
             )

@@ -608,7 +608,7 @@ struct QueueTests {
         }
 
         try await withApp(configure: configure) { app in
-            #expect(app.queues.queue(.default).key == "vapor_queues[default]")
+            #expect(app.queues.queue(.default).key == "libp2p_queues[default]")
             //#expect(QueuesEventLoopPreference.indifferent.delegate(for: app.eventLoopGroup) != nil)
             //#expect(QueuesEventLoopPreference.delegate(on: app.eventLoopGroup.any()).delegate(for: app.eventLoopGroup) != nil)
         }
